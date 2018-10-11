@@ -1,125 +1,221 @@
 import React, { Component } from 'react';
-import './App.css';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-import axios from 'axios';
-
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import Home from "./components/Home";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { List, ListItem, ListItemText, Divider } from "@material-ui/core";
+import axios from "axios";
+import Navbar from "./components/navbar";
+import Home from "./pages/home";
+import Forum from "./pages/forum";
+import User from "./pages/user";
+import News from "./pages/news";
 
 class App extends Component {
   state = {
     username: "",
     password: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    signUp: false,
+    logIn: false,
+    sideNav: false,
     auth: {
-      userId:"",
-      username:"",
-      isAuthenticated:false
-    }
+      userId: "",
+      username: "",
+      recipes: [],
+      topics: [],
+      articles: [],
+    },
   };
 
-  componentWillMount(){
-    axios.get("/auth/isAuthenticated").then((result)=>{
-      const {userId, isAuthenticated,username} = result.data
+  componentDidMount() {
+    axios.get("/auth/isAuthenticated").then((result) => {
+      const { userId, username, recipes, topics, articles } = result.data
       this.setState({
-        auth:{
+        auth: {
           userId,
-          isAuthenticated,
-          username
+          username,
+          recipes,
+          topics,
+          articles
         }
       });
     });
   }
 
-  handleChange = (event) => {
-    const {name, value} = event.target;    
-        // Set the state for the appropriate input field
+  handleInputChange = (event) => {
+    const { name, value } = event.target;
+    // Set the state for the appropriate input field
     this.setState({
       [name]: value
     });
   }
 
-  handleSubmit = (event) => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
-
+    console.log("test navbar.js")
     //call a sign In function
     const newUser = {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
     };
     this.setState({
       username: "",
-      password: ""
-    }); 
-    const {name} = event.target;
-    axios.post(name, newUser).then((data) => {
-      if (data.data.isAuthenticated){
-        const {userId, isAuthenticated,username} = data.data;
-        this.setState({
-          auth:{
-            userId,
-            isAuthenticated,
-            username
-          }
-        });
-      }
+      password: "",
+      firstName: "",
+      lastName: "",
+      email: ""
     });
+    axios.post("/auth/signup", newUser).then((user) => {
+      console.log("test navbar auth post method")
+      console.log(user);
+      if (user.config.data.username) {
+        const { userId, username, recipes, topics, articles } = user.data;
+        this.setState({
+          auth: {
+            userId,
+            username,
+            recipes,
+            topics,
+            articles
+          },
+          username: this.state.username,
+          password: this.state.password,
+          signUp: false
+        });
+        window.location = '/user';
+      } 
+    });
+  }
+
+  handlelogIn = (event) => {
+    event.preventDefault()
+    console.log("test login function")
+    const userLogin = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    console.log(userLogin)
+    axios.post("/auth/login", userLogin)
+      .then((user) => {
+        console.log(user)
+        if (user.data.username) {
+          const { userId, username, recipes, topics, articles } = user.data;
+          this.setState({
+            auth: {
+              userId,
+              username,
+              recipes,
+              topics,
+              articles
+            },
+            logIn: false
+          });
+          window.location = '/user';
+          // hide modal
+          // window.location
+          console.log('Logged In');
+        } else {
+          console.log('Not logged In');
+        }
+        console.log('After logging in');
+      })
   }
 
   handleLogout = (event) => {
     event.preventDefault();
-    axios.get("/auth/logout").then((result)=>{
+    axios.get("/auth/logout").then((result) => {
       this.setState({
-        auth:{
+        auth: {
           userId: "",
           username: "",
+          recipes: [],
+          topics: [],
+          articles: [],
           isAuthenticated: false
         }
       });
     })
   };
 
+  toggleDrawer = (open) => () => {
+    this.setState({
+      sideNav: open
+    })
+  }
+
+  toggleSignUp = (open) => () => {
+    this.setState({
+      signUp: open
+    })
+  }
+
+  toggleLogIn = (open) => () => {
+    this.setState({
+      logIn: open
+    })
+  }
+
+  
   render() {
-    const loggedIn = this.state.auth.isAuthenticated;
+    const user = this.state.auth
+    const sideNavMenu = (
+      <div style={{ width: 200 }}>
+        <List>
+          <ListItem to="/" component={Link} button onClick={this.toggleDrawer(false)}>
+            <ListItemText primary="Home" />
+          </ListItem>
+          <Divider />
+          <ListItem to="/user" component={Link} button onClick={this.toggleDrawer(false)}>
+            <ListItemText primary="Profile" />
+          </ListItem>
+          <Divider />
+          <ListItem to="/forum" component={Link} button onClick={this.toggleDrawer(false)}>
+            <ListItemText primary="Forum" />
+          </ListItem>
+          <Divider />
+          <ListItem to="/news" component={Link} button onClick={this.toggleDrawer(false)}>
+            <ListItemText primary="News" />
+          </ListItem>
+          <Divider />
+        </List>
+      </div>
+    )
     return (
       <Router>
         <div>
-        <Route exact path = "/" render = {()=> {
-          if(loggedIn){
-            return <Redirect to = "/home" />
-          } else{
-            return <SignIn 
-              handleChange= {this.handleChange} 
-              handleSubmit = {this.handleSubmit}
-              email = {this.state.email}
-              password = {this.state.password}
-            />
-          } 
-        }}/>
-        <Route exact path = "/signup" render = {()=> {
-          if(loggedIn){
-            return <Redirect to = "/home" />
-          } else{
-            return <SignUp 
-              handleChange= {this.handleChange} 
-              handleSubmit = {this.handleSubmit}
-              email = {this.state.email}
-              password = {this.state.password}
-            />
-          }  
-        }}/>
-        <Route exact path = "/home" render = {()=> {
-          if(!loggedIn){
-            return <Redirect to = "/" />
-          } else {
-            return <Home handleLogout = {this.handleLogout} auth = { this.state.auth }/>
-          } 
-        }
-        }/>
+          <Navbar
+            toggleDrawer={this.toggleDrawer}
+            toggleLogIn={this.toggleLogIn}
+            toggleSignUp={this.toggleSignUp}
+            handleInputChange={this.handleInputChange}
+            handleFormSubmit={this.handleFormSubmit}
+            handlelogIn={this.handlelogIn}
+            handleLogout={this.handleLogout}
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            username={this.state.username}
+            email={this.state.email}
+            password={this.state.password}
+            logIn={this.state.logIn}
+            signUp={this.state.signUp}
+            sideNav={this.state.sideNav}
+            sideNavMenu={sideNavMenu} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/navbar" component={Navbar} />
+            <Route exact path="/forum" component={Forum} />
+            <Route exact path="/user" render={(props) => <User {...user} />} />
+            <Route exact path="/news" component={News} />
+          </Switch>
         </div>
       </Router>
     );
-  }
-}
+  };
+};
+
+
 
 export default App;
