@@ -5,14 +5,16 @@ import SwipeableViews from 'react-swipeable-views';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Divider, AppBar, Tabs, Tab, Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
 
-function TabContainer({ dir }) {
+function TabContainer({ dir, children }) {
   return (
     <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    {children}
     </Typography>
   );
 }
 
 TabContainer.propTypes = {
+  children:PropTypes.node.isRequired,
   dir: PropTypes.string.isRequired,
 };
 
@@ -31,6 +33,9 @@ const styles = theme => ({
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
+  expansionContent: {
+    marginLeft: 5,
+  }
 });
 
 const FullWidthTabs = props => {
@@ -55,23 +60,23 @@ const FullWidthTabs = props => {
           index={props.value}
           onChangeIndex={props.handleChangeIndex}
         >
-        {props.recipes.length ? (
           <TabContainer dir={theme.direction}>
-          {props.recipes.map(recipe => (
-            <ExpansionPanel key={recipe._id}>
-              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography className={classes.expansionHeading}>{recipe.title}</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <Typography variant="headline">{recipe.ingredients}</Typography>
-                <Divider/>
-                <Typography variant="headline">{recipe.summary}</Typography>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          ))}
-          ) : (
-            <Typography variant="headline">"No results to display"</Typography>
-          )};
+          {props.recipes.map(recipe => {
+            console.log(recipe);
+            return(
+              <div>
+                <ExpansionPanel key={recipe._id}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography className={classes.expansionHeading}>{recipe.title}</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <Typography className={classes.expansionContent} variant="body1">{recipe.ingredients}</Typography>
+                    <Divider/>
+                    <Typography className={classes.expansionContent} title="Summary" variant="body1">{recipe.summary}</Typography>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              </div>
+            )})}
           </TabContainer>
           <TabContainer dir={theme.direction}>{props.articles}</TabContainer>
           <TabContainer dir={theme.direction}>{props.topics}</TabContainer>

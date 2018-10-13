@@ -20,6 +20,10 @@ class User extends Component {
   }
 
   componentWillMount() {
+    this.loadUserInfo()
+  }
+
+  loadUserInfo = () => {
     const userId = localStorage.getItem("userId")
     API.getUser(userId)
       .then(res => {
@@ -72,7 +76,9 @@ class User extends Component {
     console.log(newRecipe);
     API.addRecipe(newRecipe)
     .then(response => {
-      console.log(response)
+      console.log(response);
+      this.loadUserInfo();
+      this.handleClose();
     })
   }
 
