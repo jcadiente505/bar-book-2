@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Divider, AppBar, Tabs, Tab, Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
 
 function TabContainer({ dir }) {
   return (
@@ -25,31 +23,24 @@ const styles = theme => ({
   },
   appbar: {
       backgroundColor: "#00e676"
-  }
+  },
+  expansionRoot: {
+    width: "100%"
+  },
+  expansionHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
 });
 
-class FullWidthTabs extends React.Component {
-  state = {
-    value: 0,
-  };
-
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
-
-  render() {
-    const { classes, theme } = this.props;
-
+const FullWidthTabs = props => {
+    const { classes, theme } = props;
     return (
       <div className={classes.root}>
         <AppBar className={classes.appbar} position="static">
           <Tabs
-            value={this.state.value}
-            onChange={this.handleChange}
+            value={props.value}
+            onChange={props.handleChange}
             indicatorColor="primary"
             textColor="inherit"
             fullWidth
@@ -61,17 +52,33 @@ class FullWidthTabs extends React.Component {
         </AppBar>
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={this.state.value}
-          onChangeIndex={this.handleChangeIndex}
+          index={props.value}
+          onChangeIndex={props.handleChangeIndex}
         >
-          <TabContainer dir={theme.direction}>{this.props.recipes}</TabContainer>
-          <TabContainer dir={theme.direction}>{this.props.articles}</TabContainer>
-          <TabContainer dir={theme.direction}>{this.props.topics}</TabContainer>
+        {props.recipes.length ? (
+          <TabContainer dir={theme.direction}>
+          {props.recipes.map(recipe => (
+            <ExpansionPanel key={recipe._id}>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.expansionHeading}>{recipe.title}</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Typography variant="headline">{recipe.ingredients}</Typography>
+                <Divider/>
+                <Typography variant="headline">{recipe.summary}</Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          ))}
+          ) : (
+            <Typography variant="headline">"No results to display"</Typography>
+          )};
+          </TabContainer>
+          <TabContainer dir={theme.direction}>{props.articles}</TabContainer>
+          <TabContainer dir={theme.direction}>{props.topics}</TabContainer>
         </SwipeableViews>
       </div>
     );
   }
-}
 
 FullWidthTabs.propTypes = {
   classes: PropTypes.object.isRequired,

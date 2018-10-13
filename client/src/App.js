@@ -21,22 +21,16 @@ class App extends Component {
     auth: {
       userId: "",
       username: "",
-      recipes: [],
-      topics: [],
-      articles: [],
     },
   };
 
-  componentDidMount() {
+  componentWillMount() {
     axios.get("/auth/isAuthenticated").then((result) => {
-      const { userId, username, recipes, topics, articles } = result.data
+      const { userId, username } = result.data
       this.setState({
         auth: {
           userId,
           username,
-          recipes,
-          topics,
-          articles
         }
       });
     });
@@ -72,21 +66,19 @@ class App extends Component {
       console.log("test navbar auth post method")
       console.log(user);
       if (user.config.data.username) {
-        const { userId, username, recipes, topics, articles } = user.data;
+        const { userId, username } = user.data;
         this.setState({
           auth: {
             userId,
             username,
-            recipes,
-            topics,
-            articles
           },
-          username: this.state.username,
-          password: this.state.password,
           signUp: false
         });
+        localStorage.setItem("userId", userId)
         window.location = '/user';
-      } 
+      } else {
+        console.log("sign up happened")
+      }
     });
   }
 
@@ -102,17 +94,15 @@ class App extends Component {
       .then((user) => {
         console.log(user)
         if (user.data.username) {
-          const { userId, username, recipes, topics, articles } = user.data;
+          const { _id, username } = user.data;
           this.setState({
             auth: {
-              userId,
+              _id,
               username,
-              recipes,
-              topics,
-              articles
             },
             logIn: false
           });
+          localStorage.setItem("userId", _id)
           window.location = '/user';
           // hide modal
           // window.location
@@ -131,9 +121,6 @@ class App extends Component {
         auth: {
           userId: "",
           username: "",
-          recipes: [],
-          topics: [],
-          articles: [],
           isAuthenticated: false
         }
       });

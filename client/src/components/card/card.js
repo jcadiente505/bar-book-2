@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { Card, CardContent, Typography, Button} from "@material-ui/core";
+import { Card, CardContent, Typography, Button, Dialog} from "@material-ui/core";
+import RecipeModal from "../recipemodal";
 
 const styles = {
     card: {
@@ -36,7 +37,22 @@ const UserCard = props => {
                     <Typography className={classes.title} variant="display1">
                         {props.username}
                     </Typography>
-                    <Button onClick={() => props.newRecipe} className={classes.recipe}>New Recipe</Button>
+                    <Button onClick={props.handleClickOpen} className={classes.recipe}>New Recipe</Button>
+                    <Dialog
+                        fullScreen
+                        open={props.open}
+                        onClose={props.handleClose}
+                        TransitionComponent={props.Transition}
+                    >
+                    <RecipeModal
+                        handleClose={props.handleClose}
+                        handleInputChange={props.handleInputChange}
+                        handleRecipeSubmit={props.handleRecipeSubmit}
+                        title={props.title}
+                        ingredients={props.ingredients}
+                        summary={props.summary}
+                    />
+                    </Dialog>
                 </CardContent>
             </Card>
         </div>

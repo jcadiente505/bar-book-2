@@ -13,13 +13,7 @@ const articleSchema = new Schema({
     summary: {
         type: String,
         required: true
-    },
-    userId: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "User"
-        }
-    ]
+    }
 });
 
 const Article = mongoose.model("Article", articleSchema);
