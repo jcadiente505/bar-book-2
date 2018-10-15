@@ -1,5 +1,6 @@
 const userController = require("../controllers/userController");
 const recipeController = require("../controllers/recipeController");
+const articleController = require("../controllers/articleController");
 
 module.exports = function (passport) {
 	const path = require("path");
@@ -11,7 +12,13 @@ module.exports = function (passport) {
 	.post(recipeController.addRecipe);
 
 	router.route("/user/:id")
-	.get(userController.findUser)
+	.get(userController.findUser);
+
+	router.route("/articles/scraper")
+	.get(articleController.scrapeArticles);
+
+	router.route("/articles")
+	.get(articleController.getArticles);
 
 	return router;
 };

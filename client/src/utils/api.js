@@ -13,6 +13,10 @@ export default {
         return axios.post("/api/recipes", recipe);
     },
 
+    scrapeArticles: function() {
+        return axios.get("/api/articles/scraper")
+    },
+
     getArticles: function() {
         return axios.get("/api/articles");
     },
@@ -21,8 +25,8 @@ export default {
         return axios.get("/api/articles/" + id);
     },
 
-    saveArticle: function(articleInfo) {
-        return axios.put("/api/articles" + articleInfo);
+    saveArticle: function(article) {
+        return axios.post("/api/articles", article);
     },
 
     getTopics: function() {

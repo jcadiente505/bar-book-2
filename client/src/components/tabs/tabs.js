@@ -14,7 +14,7 @@ function TabContainer({ dir, children }) {
 }
 
 TabContainer.propTypes = {
-  children:PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
   dir: PropTypes.string.isRequired,
 };
 
@@ -64,7 +64,6 @@ const FullWidthTabs = props => {
           {props.recipes.map(recipe => {
             console.log(recipe);
             return(
-              <div>
                 <ExpansionPanel key={recipe._id}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.expansionHeading}>{recipe.title}</Typography>
@@ -75,7 +74,6 @@ const FullWidthTabs = props => {
                     <Typography className={classes.expansionContent} title="Summary" variant="body1">{recipe.summary}</Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
-              </div>
             )})}
           </TabContainer>
           <TabContainer dir={theme.direction}>{props.articles}</TabContainer>

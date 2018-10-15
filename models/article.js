@@ -10,10 +10,13 @@ const articleSchema = new Schema({
         type: String,
         required: true
     },
+    image: {
+        type: String,
+    },
     summary: {
         type: String,
         required: true
-    }
+    },
 });
 
 const Article = mongoose.model("Article", articleSchema);

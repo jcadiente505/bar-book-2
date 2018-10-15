@@ -33,7 +33,7 @@ class User extends Component {
             username: res.data.username,
             recipes: res.data.recipes,
             articles: res.data.articles,
-            topics: res.data.topics
+            topics: res.data.topic
           }
         })
         console.log(this.state.user)
