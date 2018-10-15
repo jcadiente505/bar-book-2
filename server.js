@@ -11,7 +11,7 @@ const session = require('express-session');
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 // Serve up static assets
-app.use(express.static("client/public"));
+app.use(express.static("client/build"));
 
  // For Passport
 app.use(session({ secret: 'superSecretbar-book-2',resave: true, saveUninitialized:true})); // session secret
