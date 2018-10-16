@@ -10,10 +10,12 @@ const TopicSchema = new Schema({
         type: String,
         required: true
     },
-    comments: {
+    comments: [
+        {
         type: Schema.Types.ObjectId,
         ref: "Comments"
-    }
+        }
+    ]
 });
 
 const Topic = mongoose.model("Topic", TopicSchema);

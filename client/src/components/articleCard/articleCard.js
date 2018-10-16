@@ -7,7 +7,7 @@ const styles = {
     card: {
         maxWidth: 345,
         marginTop: 20,
-        marginLeft: 20,
+        marginLeft: 22.5,
         marginBottom: 20
     },
     media: {
@@ -26,6 +26,7 @@ const articleCard = props => {
                     <Card className={classes.card}>
                         <CardActionArea>
                             <CardMedia
+                                style={{ width: 350 }}
                                 className={classes.media}
                                 image={article.image}
                                 title={article.title}

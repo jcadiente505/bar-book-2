@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Divider, AppBar, Tabs, Tab, Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
+import { Card, CardActionArea, CardContent, CardMedia, Divider, AppBar, Tabs, Tab, Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
 
 function TabContainer({ dir, children }) {
   return (
@@ -20,7 +20,7 @@ TabContainer.propTypes = {
 
 const styles = theme => ({
   root: {
-    backgroundColor: "white",
+    backgroundColor: "black",
     width: "100%",
   },
   appbar: {
@@ -35,7 +35,17 @@ const styles = theme => ({
   },
   expansionContent: {
     marginLeft: 5,
-  }
+  },
+  card: {
+    // maxWidth: 345,
+    maxHeight: 100,
+    marginTop: 20,
+  },
+  media: {
+    height: 100,
+    width: 100,
+    float: "left"
+  },
 });
 
 const FullWidthTabs = props => {
@@ -76,7 +86,33 @@ const FullWidthTabs = props => {
                 </ExpansionPanel>
             )})}
           </TabContainer>
-          {/* <TabContainer dir={theme.direction}>{props.articles}</TabContainer> */}
+          <TabContainer dir={theme.direction}>
+          {props.articles.map(article => {
+            console.log(article)
+            return(
+                <Card key={article._id} className={classes.card}>
+                  <CardActionArea
+                  href={article.link}
+                  component="a">
+                    <CardMedia
+                      className={classes.media}
+                      image={article.image}
+                      title={article.title}
+                    />
+                    <CardContent>
+                      <Typography variant="subheading">
+                      {article.title}
+                      </Typography>
+                      <Divider/>
+                      <Typography variant="caption">
+                       {article.summary}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+            )
+          })}
+          </TabContainer>
           <TabContainer dir={theme.direction}>{props.topics}</TabContainer>
         </SwipeableViews>
       </div>
