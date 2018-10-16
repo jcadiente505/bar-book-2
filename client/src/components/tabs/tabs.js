@@ -76,7 +76,7 @@ const FullWidthTabs = props => {
                 </ExpansionPanel>
             )})}
           </TabContainer>
-          <TabContainer dir={theme.direction}>{props.articles}</TabContainer>
+          {/* <TabContainer dir={theme.direction}>{props.articles}</TabContainer> */}
           <TabContainer dir={theme.direction}>{props.topics}</TabContainer>
         </SwipeableViews>
       </div>

@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Button, TextField, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+
 const styles = theme => ({
     title: {
         textAlign: "center"

@@ -24,7 +24,7 @@ class App extends Component {
     },
   };
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get("/auth/isAuthenticated").then((result) => {
       const { userId, username } = result.data
       this.setState({
@@ -192,7 +192,6 @@ class App extends Component {
             sideNavMenu={sideNavMenu} />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/navbar" component={Navbar} />
             <Route exact path="/forum" component={Forum} />
             <Route exact path="/user" render={(props) => <User {...user} />} />
             <Route exact path="/news" component={News} />

@@ -19,15 +19,17 @@ const articleCard = props => {
     const { classes } = props
     return (
         <div>
-            {props.articles.map(article => {
+            {props.articles.map((article, i) => {
+                console.log(article);
                 return (
-                    <div>
-                    <Card key={article.title} className={classes.card}>
+                    <div key={i}>
+                    <Card className={classes.card}>
                         <CardActionArea>
                             <CardMedia
                                 className={classes.media}
                                 image={article.image}
                                 title={article.title}
+                                href={article.link}
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="headline">
@@ -42,7 +44,7 @@ const articleCard = props => {
                             <Button href={article.link} size="small" color="primary">
                                 Read Article
                             </Button>
-                            <Button onClick={props.saveArticle} size="small" color="primary">
+                            <Button onClick={(e) => props.saveArticles(article, e)} size="small" color="primary">
                                 Favorite
                             </Button>
                         </CardActions>

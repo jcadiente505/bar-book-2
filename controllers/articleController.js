@@ -46,6 +46,19 @@ module.exports = {
         db.Article.find({})
         .then(articles => {
             res.json(articles)
+        });
+    },
+
+    saveArticles: function(req, res) {
+        console.log("============ SAVED ARTICLES ==========");
+        console.log(req.body)
+        db.Article.create(req.body)
+        .then(article => {
+            console.log(article)
+            return db.User.findOneAndUpdate({ _id: req.body.id }, { $push: { articles: article._id}}, { new:true });
+        })
+        .then(articleInfo => {
+            res.json(articleInfo);
         })
     }
 }

@@ -25,7 +25,7 @@ export default {
         return axios.get("/api/articles/" + id);
     },
 
-    saveArticle: function(article) {
+    saveArticles: function(article) {
         return axios.post("/api/articles", article);
     },
 

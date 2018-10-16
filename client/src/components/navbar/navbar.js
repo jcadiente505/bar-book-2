@@ -24,7 +24,7 @@ const styles = theme => ({
   },
   navbar: {
     backgroundColor: "#00e676",
-    width: "100%"
+    width: "100%",
   },
   fullList: {
     width: 'auto',
@@ -35,7 +35,7 @@ const Navbar = props => {
     const { classes } = props;
     return (
       <div className={classes.root}>
-        <AppBar className={classes.navbar} position="static">
+        <AppBar className={classes.navbar} position="sticky">
           <Toolbar>
             <IconButton onClick={props.toggleDrawer(true)} className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />

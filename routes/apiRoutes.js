@@ -18,7 +18,8 @@ module.exports = function (passport) {
 	.get(articleController.scrapeArticles);
 
 	router.route("/articles")
-	.get(articleController.getArticles);
+	.get(articleController.getArticles)
+	.post(articleController.saveArticles);
 
 	return router;
 };

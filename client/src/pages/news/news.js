@@ -23,19 +23,22 @@ class Forum extends Component {
     })
   }
 
-  saveArticle = event => {
+  saveArticles = (article, event) => {
 
     const userId = localStorage.getItem("userId")
     event.preventDefault();
-    const article = {
-      title: this.title,
-      summary: this.summary,
-      link: this.link,
-      image: this.image,
-      userId: userId
+    const savedArticle = {
+      title: article.title,
+      summary: article.summary,
+      link: article.link,
+      image: article.image,
+      id: userId
     }
-    console.log(article)
-    // API.saveArticle()
+    console.log(savedArticle)
+    API.saveArticles(savedArticle)
+    .then(response => {
+      console.log(response);
+    })
   }
 
   render() {
@@ -43,7 +46,7 @@ class Forum extends Component {
       <div>
         <ArticleCard 
         articles={this.state.articles}
-        saveArticle={this.saveArticle}
+        saveArticles={this.saveArticles}
         />
       </div>
     )
