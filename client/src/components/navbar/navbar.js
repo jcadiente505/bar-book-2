@@ -33,6 +33,7 @@ const styles = theme => ({
 
 const Navbar = props => {
     const { classes } = props;
+    const isLoggedIn = props.isLoggedIn
     return (
       <div className={classes.root}>
         <AppBar className={classes.navbar} position="sticky">
@@ -43,8 +44,14 @@ const Navbar = props => {
             <Typography variant="display2" color="inherit" className={classes.grow}>
               Bar Book
             </Typography>
-            <Button onClick={props.toggleLogIn(true)} className={classes.loginButton} color="inherit">Login</Button>
-            <Button onClick={props.toggleSignUp(true)} color="inherit">Sign Up</Button>
+              {!isLoggedIn ? (
+                <div>
+                  <Button onClick={props.toggleLogIn(true)} className={classes.loginButton} color="inherit">Login</Button>
+                  <Button onClick={props.toggleSignUp(true)} className={classes.loginButton} color="inherit">Sign Up</Button>       
+                </div>
+              ) : (
+                <Button onClick={props.handleLogOut} className={classes.loginButton} color="inherit">Log Out</Button>
+              )}
             <Dialog
               open={props.signUp} onClose={props.toggleSignUp(false)}
             >

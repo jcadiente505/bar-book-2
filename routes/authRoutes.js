@@ -29,8 +29,8 @@ module.exports = function (passport) {
 			if (err){ return res.json("authroutes error message: " + err.message); }
 			console.log("test user registered")
 			// console.log(user);
-			console.log(user.username);
-			const userInfo = req.user
+			// console.log(user.username);
+			const userInfo = user
 			res.json(userInfo);
 		});
 	});

@@ -21,18 +21,28 @@ class App extends Component {
     auth: {
       userId: "",
       username: "",
+      isAuthenticated: false
     },
+    isLoggedIn: false
   };
 
   componentDidMount() {
     axios.get("/auth/isAuthenticated").then((result) => {
-      const { userId, username } = result.data
+      const { userId, username, isAuthenticated } = result.data
       this.setState({
         auth: {
           userId,
           username,
+          isAuthenticated
         }
       });
+      if(this.state.auth.isAuthenticated) {
+      this.setState({
+        isLoggedIn: true
+        })
+      }
+      console.log(this.state.isLoggedIn)
+      // console.log(this.state.auth)
     });
   }
 
@@ -62,24 +72,34 @@ class App extends Component {
       lastName: "",
       email: ""
     });
-    axios.post("/auth/signup", newUser).then((user) => {
-      console.log("test navbar auth post method")
-      console.log(user);
-      if (user.config.data.username) {
-        const { userId, username } = user.data;
-        this.setState({
-          auth: {
-            userId,
-            username,
-          },
-          signUp: false
-        });
-        localStorage.setItem("userId", userId)
-        window.location = '/user';
-      } else {
-        console.log("sign up happened")
-      }
-    });
+    axios.post("/auth/signup", newUser)
+      .then((user) => {
+        console.log("test navbar auth post method")
+        console.log(user);
+        if (user.data.username) {
+          const { _id, username, isAuthenticated } = user.data;
+          this.setState({
+            auth: {
+              _id,
+              username,
+              isAuthenticated
+            },
+            logIn: false
+          });
+          this.setState({
+            isLoggedIn: true
+          })
+          console.log(this.state.isLoggedIn)
+          localStorage.setItem("userId", _id)
+          window.location = '/user';
+          // hide modal
+          // window.location
+          console.log('Logged In');
+        } else {
+          console.log('Not logged In');
+        }
+        console.log('After logging in');
+      })
   }
 
   handlelogIn = (event) => {
@@ -94,14 +114,19 @@ class App extends Component {
       .then((user) => {
         console.log(user)
         if (user.data.username) {
-          const { _id, username } = user.data;
+          const { _id, username, isAuthenticated } = user.data;
           this.setState({
             auth: {
               _id,
               username,
+              isAuthenticated
             },
             logIn: false
           });
+          this.setState({
+            isLoggedIn: true
+          })
+          console.log(this.state.isLoggedIn)
           localStorage.setItem("userId", _id)
           window.location = '/user';
           // hide modal
@@ -114,9 +139,10 @@ class App extends Component {
       })
   }
 
-  handleLogout = (event) => {
+  handleLogOut = (event) => {
     event.preventDefault();
     axios.get("/auth/logout").then((result) => {
+      localStorage.removeItem("userId");
       this.setState({
         auth: {
           userId: "",
@@ -124,7 +150,12 @@ class App extends Component {
           isAuthenticated: false
         }
       });
+      this.setState({
+        isLoggedIn: false
+      })
     })
+    window.location = "/"
+    console.log(this.state.isLoggedIn)
   };
 
   toggleDrawer = (open) => () => {
@@ -174,13 +205,14 @@ class App extends Component {
       <Router>
         <div>
           <Navbar
+            isLoggedIn={this.state.isLoggedIn}
             toggleDrawer={this.toggleDrawer}
             toggleLogIn={this.toggleLogIn}
             toggleSignUp={this.toggleSignUp}
             handleInputChange={this.handleInputChange}
             handleFormSubmit={this.handleFormSubmit}
             handlelogIn={this.handlelogIn}
-            handleLogout={this.handleLogout}
+            handleLogOut={this.handleLogOut}
             firstName={this.state.firstName}
             lastName={this.state.lastName}
             username={this.state.username}

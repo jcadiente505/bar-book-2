@@ -38,7 +38,7 @@ const styles = theme => ({
   },
   card: {
     // maxWidth: 345,
-    maxHeight: 100,
+    minHeight: 100,
     marginTop: 20,
   },
   media: {
