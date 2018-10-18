@@ -186,9 +186,15 @@ class App extends Component {
             <ListItemText primary="Home" />
           </ListItem>
           <Divider />
-          <ListItem to="/user" component={Link} button onClick={this.toggleDrawer(false)}>
+          {!this.state.isLoggedIn ? (
+              <ListItem to="/user" component={Link} button disabled="true" onClick={this.toggleDrawer(false)}>
+              <ListItemText primary="Profile" />
+              </ListItem>  
+          ) : (
+            <ListItem to="/user" component={Link} button onClick={this.toggleDrawer(false)}>
             <ListItemText primary="Profile" />
-          </ListItem>
+            </ListItem>
+          )}
           <Divider />
           <ListItem to="/forum" component={Link} button onClick={this.toggleDrawer(false)}>
             <ListItemText primary="Forum" />

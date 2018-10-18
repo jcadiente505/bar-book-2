@@ -37,7 +37,7 @@ module.exports = function (passport) {
 
 	router.post("/login",passport.authenticate('local') ,function(req,res){
 		console.log("test log in authroute")
-		console.log(req.user);
+		// console.log(req.user);
 		const userInfo = req.user
 		res.json(userInfo);
 	});

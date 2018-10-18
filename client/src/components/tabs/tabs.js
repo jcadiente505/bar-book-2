@@ -72,7 +72,7 @@ const FullWidthTabs = props => {
         >
           <TabContainer dir={theme.direction}>
           {props.recipes.map(recipe => {
-            console.log(recipe);
+            // console.log(recipe);
             return(
                 <ExpansionPanel key={recipe._id}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -88,7 +88,7 @@ const FullWidthTabs = props => {
           </TabContainer>
           <TabContainer dir={theme.direction}>
           {props.articles.map(article => {
-            console.log(article)
+            // console.log(article)
             return(
                 <Card key={article._id} className={classes.card}>
                   <CardActionArea

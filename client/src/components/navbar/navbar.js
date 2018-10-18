@@ -35,8 +35,8 @@ const Navbar = props => {
     const { classes } = props;
     const isLoggedIn = props.isLoggedIn
     return (
-      <div className={classes.root}>
-        <AppBar className={classes.navbar} position="sticky">
+      <div className={classes.root} style={{position: "static", marginBottom: 55}}>
+        <AppBar className={classes.navbar}>
           <Toolbar>
             <IconButton onClick={props.toggleDrawer(true)} className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />

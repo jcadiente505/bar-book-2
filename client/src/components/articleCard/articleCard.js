@@ -6,12 +6,12 @@ import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typo
 const styles = {
     card: {
         maxWidth: 345,
-        marginTop: 20,
-        marginLeft: 22.5,
-        marginBottom: 20
+        marginTop: 100,
+        marginLeft: 22,
+        marginBottom: -50
     },
     media: {
-        height: 200,
+        height: 150,
     },
 }
 

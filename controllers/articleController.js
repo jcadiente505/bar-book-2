@@ -16,7 +16,7 @@ module.exports = {
             const articles = [];
 
             $("div.card").each((i, element) => {
-                console.log("Looping")
+                // console.log("Looping")
                 // assign each piece of html we want too a variable
                 let title = $(element).find("div.copy").children("h3").text();
                 let summary = $(element).find("div.copy").children("div.archive-item-text").text();
@@ -50,11 +50,11 @@ module.exports = {
     },
 
     saveArticles: function(req, res) {
-        console.log("============ SAVED ARTICLES ==========");
-        console.log(req.body)
+        // console.log("============ SAVED ARTICLES ==========");
+        // console.log(req.body)
         db.Article.create(req.body)
         .then(article => {
-            console.log(article)
+            // console.log(article)
             return db.User.findOneAndUpdate({ _id: req.body.id }, { $push: { articles: article._id}}, { new:true });
         })
         .then(articleInfo => {

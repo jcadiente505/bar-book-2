@@ -2,9 +2,9 @@ const db = require("../models");
 
 module.exports = {
     addRecipe: function(req, res) {
-        console.log("addRecipe Function")
-        console.log("======================")
-        console.log(req.body)
+        // console.log("addRecipe Function")
+        // console.log("======================")
+        // console.log(req.body)
         db.Recipe.create(req.body)
         .then(recipe => {
             console.log(recipe)
