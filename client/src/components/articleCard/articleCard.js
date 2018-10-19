@@ -3,18 +3,24 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from "@material-ui/core"
 
-const styles = {
+const styles = theme => ({
     card: {
         maxWidth: 345,
         marginTop: 75,
         marginLeft: 15,
         marginRight: 15,
-        marginBottom: -50
+        marginBottom: -50,
+        [theme.breakpoints.only('xs')]: {
+            marginRight: 5
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: 35
+        },
     },
     media: {
-        height: 150,
+        height: 200,
     },
-}
+})
 
 const articleCard = props => {
     const { classes } = props

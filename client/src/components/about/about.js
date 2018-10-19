@@ -25,7 +25,7 @@ const styles = theme => ({
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        width: 400,
+        width: "100%",
         height: 222,
         textAlign: "center",
         color: "white"
@@ -44,7 +44,7 @@ const styles = theme => ({
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        width: 400,
+        width: "100%",
         height: 222,
         textAlign: "center",
         color: "white"
@@ -54,7 +54,7 @@ const styles = theme => ({
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        width: 400,
+        width: "100%",
         height: 222,
         textAlign: "center",
         color: "white"
