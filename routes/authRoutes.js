@@ -26,11 +26,11 @@ module.exports = function (passport) {
 		console.log("test authroutes.js")
 		const newUser = req.body;
 		User.register(newUser, newUser.password,(err,user)=>{
-			if (err){ return res.json("authroutes error message: " + err.message); }
+			if (err){ return res.json(err.message); }
 			console.log("test user registered")
-			// console.log(user);
-			// console.log(user.username);
+			console.log(user);
 			const userInfo = user
+			console.log(userInfo)
 			res.json(userInfo);
 		});
 	});

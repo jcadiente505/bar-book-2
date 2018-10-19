@@ -27,7 +27,10 @@ const styles = theme => ({
       backgroundColor: "#00e676"
   },
   expansionRoot: {
-    width: "100%"
+    width: "100%",
+    [theme.breakpoints.up('xs')]: {
+      textAlign: "center",
+  },
   },
   expansionHeading: {
     fontSize: theme.typography.pxToRem(15),
@@ -74,7 +77,7 @@ const FullWidthTabs = props => {
           {props.recipes.map(recipe => {
             // console.log(recipe);
             return(
-                <ExpansionPanel key={recipe._id}>
+                <ExpansionPanel className={classes.expansionRoot} key={recipe._id}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.expansionHeading}>{recipe.title}</Typography>
                   </ExpansionPanelSummary>

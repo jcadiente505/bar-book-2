@@ -11,6 +11,7 @@ class User extends Component {
     title: "",
     ingredients: "",
     summary: "",
+    public: false,
     user: {
       username: "",
       recipes: [],
@@ -71,7 +72,8 @@ class User extends Component {
       id: userId,
       title: this.state.title,
       ingredients: this.state.ingredients,
-      summary: this.state.summary
+      summary: this.state.summary,
+      public: this.state.public
     };
     console.log(newRecipe);
     API.addRecipe(newRecipe)
@@ -99,6 +101,7 @@ class User extends Component {
           title={this.state.title}
           ingredients={this.state.ingredients}
           summary={this.state.summary}
+          public={this.state.public}
         />
         <FullWidthTabs 
           value={this.state.value}

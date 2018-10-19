@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import  { Typography, IconButton, Toolbar, AppBar, ListItemText, ListItem, List, Divider, TextField } from '@material-ui/core';
+import  { InputLabel, FormControl, NativeSelect, Input, FormHelperText, Typography, IconButton, Toolbar, AppBar, ListItemText, ListItem, List, Divider, TextField } from '@material-ui/core';
 import CloseIcon from "@material-ui/icons/Close";
 const styles = {
     appBar: {
@@ -60,7 +60,21 @@ const recipeModal = props => {
                         onChange={props.handleInputChange} 
                     />
                 </ListItem>
-                </List>
+                <ListItem>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="public-helper">Public:  </InputLabel>
+                        <NativeSelect
+                            value={props.public}
+                            onChange={props.handleInputChange}
+                            input={<Input name="public" id="public-helper" />}
+                        >
+                            <option value={false}>No</option>
+                            <option value={true}>Yes</option>
+                        </NativeSelect>
+                        <FormHelperText>Share this recipe for others?</FormHelperText>
+                    </FormControl>
+                 </ListItem>
+            </List>
         </div>
     );
     }

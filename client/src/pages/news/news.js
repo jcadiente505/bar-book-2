@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import API from "../../utils/api";
 import ArticleCard from "../../components/articleCard";
+import Header from "../../components/header"
 
 class Forum extends Component {
   state = {
@@ -44,6 +45,7 @@ class Forum extends Component {
   render() {
     return (
       <div>
+        <Header/>
         <ArticleCard 
         articles={this.state.articles}
         saveArticles={this.saveArticles}

@@ -43,6 +43,11 @@ class App extends Component {
       }
       console.log(this.state.isLoggedIn)
       // console.log(this.state.auth)
+    })
+    .catch(err => {
+      if (err) {
+          console.log(err)
+        }
     });
   }
 
@@ -77,18 +82,15 @@ class App extends Component {
         console.log("test navbar auth post method")
         console.log(user);
         if (user.data.username) {
-          const { _id, username, isAuthenticated } = user.data;
+          const { _id, username } = user.data;
           this.setState({
             auth: {
               _id,
               username,
-              isAuthenticated
+              isAuthenticated: true
             },
-            logIn: false
-          });
-          this.setState({
             isLoggedIn: true
-          })
+          });
           console.log(this.state.isLoggedIn)
           localStorage.setItem("userId", _id)
           window.location = '/user';
@@ -136,6 +138,9 @@ class App extends Component {
           console.log('Not logged In');
         }
         console.log('After logging in');
+      })
+      .catch(err => {
+        if (err) throw err
       })
   }
 
