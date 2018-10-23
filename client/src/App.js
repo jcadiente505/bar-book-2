@@ -12,9 +12,6 @@ class App extends Component {
   state = {
     username: "",
     password: "",
-    firstName: "",
-    lastName: "",
-    email: "",
     signUp: false,
     logIn: false,
     sideNav: false,
@@ -28,6 +25,7 @@ class App extends Component {
 
   componentDidMount() {
     axios.get("/auth/isAuthenticated").then((result) => {
+      console.log(result);
       const { userId, username, isAuthenticated } = result.data
       this.setState({
         auth: {
@@ -66,34 +64,28 @@ class App extends Component {
     const newUser = {
       username: this.state.username,
       password: this.state.password,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
     };
     this.setState({
       username: "",
       password: "",
-      firstName: "",
-      lastName: "",
-      email: ""
     });
-    axios.post("/auth/signup", newUser)
-      .then((user) => {
+    axios.post("/auth/signup", newUser).then((user) => {
         console.log("test navbar auth post method")
         console.log(user);
         if (user.data.username) {
           const { _id, username } = user.data;
           this.setState({
-            auth: {
+            auth:{
               _id,
-              username,
-              isAuthenticated: true
-            },
-            isLoggedIn: true
+              isAuthenticated: true,
+              username
+            }
           });
           console.log(this.state.isLoggedIn)
-          localStorage.setItem("userId", _id)
           window.location = '/user';
+          localStorage.setItem("userId", _id);
+          const localId = localStorage.getItem("userId")
+          console.log(localId)
           // hide modal
           // window.location
           console.log('Logged In');
@@ -101,6 +93,7 @@ class App extends Component {
           console.log('Not logged In');
         }
         console.log('After logging in');
+        // window.location = '/user';
       })
   }
 

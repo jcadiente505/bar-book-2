@@ -26,37 +26,6 @@ const SignInModal = props => {
                 <TextField
                     autoFocus
                     margin="dense"
-                    id="firstName"
-                    name="firstName"
-                    label="First Name"
-                    value={props.firstName}
-                    onChange={props.handleInputChange}
-                    required
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="lastName"
-                    name="lastName"
-                    label="Last Name"
-                    value={props.lastName}
-                    onChange={props.handleInputChange}
-                    required
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="email-input"
-                    name="email"
-                    label="Email"
-                    fullWidth
-                    value={props.email}
-                    onChange={props.handleInputChange}
-                    required
-                />
-                <TextField
-                    autoFocus
-                    margin="dense"
                     id="userName-input"
                     name="username"
                     label="Username"

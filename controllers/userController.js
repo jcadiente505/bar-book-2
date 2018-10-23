@@ -6,7 +6,6 @@ module.exports = {
     findUser: function(req, res) {
         // console.log(req.params)
         const userId = req.params.id
-        // console.log(userId)
         // console.log("USER CONTROLLER")
         // console.log("=============================================")
         db.User.findOne( {_id: ObjectId(userId)} )

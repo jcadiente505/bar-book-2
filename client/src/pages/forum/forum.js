@@ -10,10 +10,6 @@ class Forum extends Component {
     }
   }
 
-  createArticle = () => {
-    
-  }
-
   render() {
     return (
       <div>

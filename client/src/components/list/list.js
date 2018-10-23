@@ -29,7 +29,7 @@ const TopicList = props => {
                         This is where the date and author go
                     </Typography>
                     <Typography variant="subheading">
-                        This is where the summary will go:
+                        summary:
                         Lorem Ipsum Solar Dit Amit
                     </Typography>
                 </ListItemText>

@@ -28,16 +28,15 @@ const styles = theme => ({
   },
   expansionRoot: {
     width: "100%",
-    [theme.breakpoints.up('xs')]: {
-      textAlign: "center",
-  },
   },
   expansionHeading: {
+    width: "100%",
+    textAlign: "center",
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
   expansionContent: {
-    marginLeft: 5,
+    display: "block"
   },
   card: {
     // maxWidth: 345,
@@ -81,9 +80,11 @@ const FullWidthTabs = props => {
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.expansionHeading}>{recipe.title}</Typography>
                   </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
+                  <ExpansionPanelDetails style={{display: "block"}}>
+                    <Typography className={classes.expansionContent} variant="subheading">Ingredients</Typography>
                     <Typography className={classes.expansionContent} variant="body1">{recipe.ingredients}</Typography>
                     <Divider/>
+                    <Typography className={classes.expansionContent} variant="subheading">Summary</Typography>
                     <Typography className={classes.expansionContent} title="Summary" variant="body1">{recipe.summary}</Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>

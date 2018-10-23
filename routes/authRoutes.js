@@ -23,15 +23,14 @@ module.exports = function (passport) {
 	});
 
 	router.post("/signup",function(req,res){
-		console.log("test authroutes.js")
 		const newUser = req.body;
 		User.register(newUser, newUser.password,(err,user)=>{
 			if (err){ return res.json(err.message); }
-			console.log("test user registered")
-			console.log(user);
-			const userInfo = user
-			console.log(userInfo)
-			res.json(userInfo);
+			// console.log(user)
+			passport.authenticate("local")(req, res, function() {
+				console.log(req.user);
+				res.json(req.user);
+			})
 		});
 	});
 

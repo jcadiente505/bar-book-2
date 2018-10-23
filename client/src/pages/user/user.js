@@ -25,10 +25,11 @@ class User extends Component {
   }
 
   loadUserInfo = () => {
-    const userId = localStorage.getItem("userId")
+    const userId = localStorage.getItem("userId");
+    console.log(userId);
     API.getUser(userId)
       .then(res => {
-        console.log(res)
+        console.log(res);
         this.setState({
           user: {
             username: res.data.username,

@@ -5,17 +5,9 @@ import { Grid, Card, CardActionArea, CardActions, CardContent, CardMedia, Button
 
 const styles = theme => ({
     card: {
-        maxWidth: 345,
+        width: "100%",
         marginTop: 75,
-        marginLeft: 15,
-        marginRight: 15,
         marginBottom: -50,
-        [theme.breakpoints.only('xs')]: {
-            marginRight: 5
-        },
-        [theme.breakpoints.down('sm')]: {
-            marginLeft: 35
-        },
     },
     media: {
         height: 200,
@@ -29,19 +21,19 @@ const articleCard = props => {
             {props.articles.map((article, i) => {
                 console.log(article);
                 return (
-                        <Grid item xs={12} sm={12} lg={3}>
-                            <div key={i}>
+                        <Grid key={i} item xs={12} sm={12} lg={3}>
+                            <div>
                                 <Card className={classes.card}>
                                     <CardActionArea>
                                         <CardMedia
-                                            style={{ width: 350 }}
+                                            style={{ width: 377 }}
                                             className={classes.media}
                                             image={article.image}
                                             title={article.title}
                                             href={article.link}
                                         />
                                         <CardContent>
-                                            <Typography gutterBottom variant="headline">
+                                            <Typography gutterBottom variant="subheading">
                                                 {article.title}
                                             </Typography>
                                             <Typography component="p">
