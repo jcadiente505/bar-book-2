@@ -4,7 +4,7 @@ import { List, ListItem, ListItemText, Divider } from "@material-ui/core";
 import axios from "axios";
 import Navbar from "./components/navbar";
 import Home from "./pages/home";
-import Forum from "./pages/forum";
+import Recipe from "./pages/recipes";
 import User from "./pages/user";
 import News from "./pages/news";
 
@@ -194,8 +194,8 @@ class App extends Component {
             </ListItem>
           )}
           <Divider />
-          <ListItem to="/forum" component={Link} button onClick={this.toggleDrawer(false)}>
-            <ListItemText primary="Forum" />
+          <ListItem to="/recipes" component={Link} button onClick={this.toggleDrawer(false)}>
+            <ListItemText primary="Recipe's" />
           </ListItem>
           <Divider />
           <ListItem to="/news" component={Link} button onClick={this.toggleDrawer(false)}>
@@ -228,7 +228,7 @@ class App extends Component {
             sideNavMenu={sideNavMenu} />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/forum" component={Forum} />
+            <Route exact path="/recipes" component={Recipe} />
             <Route exact path="/user" render={(props) => <User {...user} />} />
             <Route exact path="/news" component={News} />
           </Switch>

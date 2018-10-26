@@ -13,5 +13,13 @@ module.exports = {
         .then(userInfo => {
             res.json(userInfo);
         })
+    },
+
+    allRecipes: function(req, res) {
+        db.Recipe.find({ public: "true" })
+        .then(recipes => {
+            console.log(recipes);
+            res.json(recipes);
+        })
     }
 }

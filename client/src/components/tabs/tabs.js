@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Card, CardActionArea, CardContent, CardMedia, Divider, AppBar, Tabs, Tab, Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
+import { InputBase, Dialog, Button, Card, CardActionArea, CardContent, CardMedia, Divider, AppBar, Tabs, Tab, Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
+import RecipeModal from "../recipemodal";
+import SearchIcon from '@material-ui/icons/Search';
 
 function TabContainer({ dir, children }) {
   return (
@@ -48,6 +50,44 @@ const styles = theme => ({
     width: 100,
     float: "left"
   },
+  recipe: {
+    color: "white",
+    border: "solid 1px white",
+    marginBottom: 10,
+    width: "100%",
+    height: 50
+  },
+  searchIcon: {
+    color: "white",
+    width: theme.spacing.unit * 9,
+    height: 50,
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: "white",
+    border: "solid 1px white",
+    marginBottom: 10,
+    width: "100%",
+    height: 50
+  },
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 10,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 120,
+      '&:focus': {
+        width: 200,
+      },
+    },
+  }
 });
 
 const FullWidthTabs = props => {
@@ -73,9 +113,26 @@ const FullWidthTabs = props => {
           onChangeIndex={props.handleChangeIndex}
         >
           <TabContainer dir={theme.direction}>
-          {props.recipes.map(recipe => {
+          <Button onClick={props.handleClickOpen} className={classes.recipe}>Create Recipe</Button>
+          <Dialog
+              fullScreen
+              open={props.open}
+              onClose={props.handleClose}
+              TransitionComponent={props.Transition}
+          >
+            <RecipeModal
+                handleClose={props.handleClose}
+                handleInputChange={props.handleInputChange}
+                handleRecipeSubmit={props.handleRecipeSubmit}
+                title={props.title}
+                ingredients={props.ingredients}
+                summary={props.summary}
+            />
+          </Dialog>
+          {props.recipes.map((recipe, i) => {
             // console.log(recipe);
             return(
+              <div key={i}>
                 <ExpansionPanel className={classes.expansionRoot} key={recipe._id}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.expansionHeading}>{recipe.title}</Typography>
@@ -88,9 +145,20 @@ const FullWidthTabs = props => {
                     <Typography className={classes.expansionContent} title="Summary" variant="body1">{recipe.summary}</Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
+                </div>
             )})}
           </TabContainer>
           <TabContainer dir={theme.direction}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search Articles..."
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+            />
           {props.articles.map(article => {
             // console.log(article)
             return(

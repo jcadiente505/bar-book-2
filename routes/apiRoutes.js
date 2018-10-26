@@ -9,7 +9,8 @@ module.exports = function (passport) {
 
 	//add any API routes here
 	router.route("/recipes")
-	.post(recipeController.addRecipe);
+	.post(recipeController.addRecipe)
+	.get(recipeController.allRecipes)
 
 	router.route("/user/:id")
 	.get(userController.findUser);

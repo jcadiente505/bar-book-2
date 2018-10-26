@@ -9,6 +9,10 @@ export default {
         return axios.get("/api/recipes/" + id);
     },
 
+    getAllRecipes: function() {
+        return axios.get("/api/recipes/")
+    },
+
     addRecipe: function(recipe) {
         return axios.post("/api/recipes", recipe);
     },

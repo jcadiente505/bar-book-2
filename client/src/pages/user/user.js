@@ -74,7 +74,8 @@ class User extends Component {
       title: this.state.title,
       ingredients: this.state.ingredients,
       summary: this.state.summary,
-      public: this.state.public
+      public: this.state.public,
+      author: this.state.user.username
     };
     console.log(newRecipe);
     API.addRecipe(newRecipe)
@@ -106,11 +107,21 @@ class User extends Component {
         />
         <FullWidthTabs 
           value={this.state.value}
+          handleClickOpen={this.handleClickOpen}
           handleChange={this.handleChange}
           handleChangeIndex={this.handleChangeIndex}
           recipes={this.state.user.recipes}
           articles={this.state.user.articles}
           topics={this.state.user.topics}
+          handleInputChange={this.handleInputChange}
+          handleClose={this.handleClose}
+          handleRecipeSubmit={this.handleRecipeSubmit}
+          title={this.state.title}
+          ingredients={this.state.ingredients}
+          summary={this.state.summary}
+          public={this.state.public}
+          Transition={this.Transition}
+          open={this.state.modalOpen}
         />
       </div>
     )
