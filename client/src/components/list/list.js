@@ -64,6 +64,7 @@ const TopicList = props => {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              onKeyUp={props.handleSearch}
             />
         <List className={classes.list}>
         {props.recipes.map((recipes, i) => {

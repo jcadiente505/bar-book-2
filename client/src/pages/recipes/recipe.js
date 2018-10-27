@@ -7,7 +7,22 @@ class Recipe extends Component {
     recipes: []
   }
 
+  handleSearch(event) {
+    event.preventDefault();
+    let query = event.target.value
+    let search = this.state.recipes.filter(results => {
+      return results.title.includes(query) || results.ingredients.includes(query) || results.summary.includes(query)
+    });
+    if (search) {
+      this.setState({recipes: search})
+    }
+    }
+
   componentDidMount() {
+    this.getAllRecipes();
+  }
+
+  getAllRecipes() {
     API.getAllRecipes()
     .then(recipes => {
       // console.log(recipes)
@@ -22,7 +37,9 @@ class Recipe extends Component {
     return (
       <div>
         <TopicList
-        recipes={this.state.recipes}/>
+        recipes={this.state.recipes}
+        handleSearch={this.handleSearch.bind(this)}
+        searchRecipes={this.searchRecipes}/>
       </div>
     )
   }
