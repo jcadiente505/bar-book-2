@@ -10,8 +10,10 @@ class User extends Component {
     modalOpen: false,
     title: "",
     ingredients: "",
+    build: "",
     summary: "",
     public: false,
+    search: "",
     user: {
       username: "",
       recipes: [],
@@ -73,6 +75,7 @@ class User extends Component {
       id: userId,
       title: this.state.title,
       ingredients: this.state.ingredients,
+      build: this.state.build,
       summary: this.state.summary,
       public: this.state.public,
       author: this.state.user.username
@@ -102,6 +105,7 @@ class User extends Component {
           handleRecipeSubmit={this.handleRecipeSubmit}
           title={this.state.title}
           ingredients={this.state.ingredients}
+          build={this.state.build}
           summary={this.state.summary}
           public={this.state.public}
         />
@@ -118,6 +122,7 @@ class User extends Component {
           handleRecipeSubmit={this.handleRecipeSubmit}
           title={this.state.title}
           ingredients={this.state.ingredients}
+          build={this.state.build}
           summary={this.state.summary}
           public={this.state.public}
           Transition={this.Transition}

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { InputBase, Dialog, Button, Card, CardActionArea, CardContent, CardMedia, Divider, AppBar, Tabs, Tab, Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
+import { Dialog, Button, Card, CardActionArea, CardContent, CardMedia, Divider, AppBar, Tabs, Tab, Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
 import RecipeModal from "../recipemodal";
-import SearchIcon from '@material-ui/icons/Search';
+
 
 function TabContainer({ dir, children }) {
   return (
@@ -104,7 +104,7 @@ const FullWidthTabs = props => {
           >
             <Tab label="Recipe's" />
             <Tab label="Articles" />
-            <Tab label="Events" />
+            <Tab label="Friend's" />
           </Tabs>
         </AppBar>
         <SwipeableViews
@@ -141,6 +141,9 @@ const FullWidthTabs = props => {
                     <Typography className={classes.expansionContent} variant="subheading">Ingredients</Typography>
                     <Typography className={classes.expansionContent} variant="body1">{recipe.ingredients}</Typography>
                     <Divider/>
+                    <Typography className={classes.expansionContent} variant="subheading">Build</Typography>
+                    <Typography className={classes.expansionContent} title="Build" variant="body1">{recipe.build}</Typography>
+                    <Divider/>
                     <Typography className={classes.expansionContent} variant="subheading">Summary</Typography>
                     <Typography className={classes.expansionContent} title="Summary" variant="body1">{recipe.summary}</Typography>
                   </ExpansionPanelDetails>
@@ -149,16 +152,6 @@ const FullWidthTabs = props => {
             )})}
           </TabContainer>
           <TabContainer dir={theme.direction}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search Articles..."
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
           {props.articles.map(article => {
             // console.log(article)
             return(

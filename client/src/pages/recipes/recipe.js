@@ -1,22 +1,57 @@
 import React, { Component } from 'react';
 import TopicList from '../../components/list';
 import API from '../../utils/api';
+import Slide from '@material-ui/core/Slide';
 
 class Recipe extends Component {
   state = {
-    recipes: []
+    recipes: [],
+    search: "",
+    open: false,
+    selectedElement: ""
   }
 
-  handleSearch(event) {
+  handleSearchChange(event) {
     event.preventDefault();
     let query = event.target.value
-    let search = this.state.recipes.filter(results => {
-      return results.title.includes(query) || results.ingredients.includes(query) || results.summary.includes(query)
+    this.handleSearch(query)
+  }
+
+  Transition(props) {
+    return <Slide direction="up" {...props} />;
+  }
+
+  onClickElement = (element) => {
+    this.setState({
+      open: true,
+      selectedElement: element
+    })
+  }
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleSearch(query) {
+    let search = this.state.recipes.filter((results) => {
+      console.log(results)
+        return results.title.includes(query) || results.ingredients.includes(query) || results.summary.includes(query) || results.author.includes(query)
     });
-    if (search) {
+    console.log(search);
+    if(!query) {
+      this.getAllRecipes();
+    }
+    else if(search === [] && query) {
+      this.getAllRecipes();
+    }
+    else {
       this.setState({recipes: search})
     }
-    }
+  }
 
   componentDidMount() {
     this.getAllRecipes();
@@ -34,12 +69,21 @@ class Recipe extends Component {
   }
 
   render() {
+    const { selectedElement } = this.state
     return (
       <div>
         <TopicList
         recipes={this.state.recipes}
+        handleSearchChange={this.handleSearchChange.bind(this)}
         handleSearch={this.handleSearch.bind(this)}
-        searchRecipes={this.searchRecipes}/>
+        searchRecipes={this.searchRecipes}
+        open={this.state.open}
+        handleClose={this.handleClose}
+        Transition={this.Transition}
+        handleClickOpen={this.handleClickOpen}
+        onClickElement={this.onClickElement}
+        selectedElement={selectedElement}
+        />
       </div>
     )
   }

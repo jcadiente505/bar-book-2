@@ -53,6 +53,15 @@ const recipeModal = props => {
                 </ListItem>
                 <Divider />
                 <ListItem>
+                    <ListItemText primary="Build"/>
+                    <TextField
+                        name="build"
+                        value={props.build}
+                        onChange={props.handleInputChange} 
+                    />
+                </ListItem>
+                <Divider />
+                <ListItem>
                     <ListItemText primary="Summary"/>
                     <TextField
                         name="summary"

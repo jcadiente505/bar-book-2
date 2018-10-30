@@ -39,6 +39,7 @@ class Forum extends Component {
     API.saveArticles(savedArticle)
     .then(response => {
       console.log(response);
+      alert("Article saved to profile!")
     })
   }
 
