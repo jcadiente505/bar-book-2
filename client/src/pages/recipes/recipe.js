@@ -8,7 +8,8 @@ class Recipe extends Component {
     recipes: [],
     search: "",
     open: false,
-    selectedElement: ""
+    selectedElement: "",
+    selectedAuthor: ""
   }
 
   handleSearchChange(event) {
@@ -22,10 +23,15 @@ class Recipe extends Component {
   }
 
   onClickElement = (element) => {
+    console.log(element)
     this.setState({
       open: true,
-      selectedElement: element
+      selectedElement: element,
     })
+  }
+
+  onClickAuthor = event => {
+    event.preventDefault();
   }
 
   handleClickOpen = () => {

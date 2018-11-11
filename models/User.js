@@ -19,10 +19,10 @@ const User = new Schema({
             ref: "Article"
         }
     ],
-    topic: [
+    friends: [
         {
             type: Schema.Types.ObjectId,
-            ref: "Topic"
+            ref: "User"
         }
     ]
 });

@@ -124,6 +124,9 @@ const TopicList = props => {
                          <Button onClick={props.handleClose} color="primary">
                             Close
                          </Button>
+                         <Button onClick={props.handleClose} color="primary">
+                            Author's page
+                         </Button>
                         </DialogActions>
                         </div>
                         </Dialog>
